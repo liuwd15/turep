@@ -52,7 +52,7 @@ Documentation = "https://github.com/liuwd15/turep/blob/main/README.md"
 
 [tool.black]
 line-length = 100
-target-version = ['py311', 'py312', 'py313']
+target-version = ['py311']
 include = '\.pyi?$'
 
 [tool.isort]

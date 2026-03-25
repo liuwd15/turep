@@ -87,7 +87,7 @@ def predict_tr(
         raise ValueError("Input FANVI model must have a valid 'adata' reference.")
 
     # FANVI.prepare_query_anndata will handle feature compatibility checks and will raise errors if there are issues
-    #_validate_feature_compatibility(adata_query, anvi.adata)
+    # _validate_feature_compatibility(adata_query, anvi.adata)
 
     unique_samples = adata_query.obs[sample_key].unique()
     if len(unique_samples) == 0:
@@ -374,7 +374,9 @@ def get_top_clonotype(
 
     logger.info(f"Analyzing clonotypes using columns: {clonotype_key}, {prediction_score_key}")
 
-    summary_clonotype = adata.obs.groupby(clonotype_key).agg({prediction_score_key: ["size", "mean"]})
+    summary_clonotype = adata.obs.groupby(clonotype_key).agg(
+        {prediction_score_key: ["size", "mean"]}
+    )
     summary_clonotype.columns = ["n_cells", "mean_score"]
     summary_clonotype["baysian_mean"] = (
         summary_clonotype["n_cells"] * summary_clonotype["mean_score"] + K * C

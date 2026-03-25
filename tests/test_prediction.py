@@ -97,7 +97,9 @@ class TestGetTopClonotype:
         ]
 
         result = get_top_clonotype(
-            mock_adata_with_clonotypes, clonotype_key="custom_clone", prediction_score_key="custom_score"
+            mock_adata_with_clonotypes,
+            clonotype_key="custom_clone",
+            prediction_score_key="custom_score",
         )
 
         assert isinstance(result, pd.DataFrame)
