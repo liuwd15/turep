@@ -5,6 +5,8 @@ import numpy as np
 import pytest
 import torch
 
+pytest.importorskip("fadvi")
+
 from turep import FFADVI
 
 

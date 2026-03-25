@@ -10,8 +10,15 @@ import scanpy as sc
 import scvi
 
 from ._fanvi import FANVI
-from ._ffadvi import FFADVI
 from ._model_loader import load_model
+
+try:
+    from ._ffadvi import FFADVI
+except ModuleNotFoundError as exc:
+    if exc.name == "fadvi":
+        FFADVI = None
+    else:
+        raise
 
 if TYPE_CHECKING:
     import pandas as pd
@@ -228,6 +235,12 @@ def predict_tr_spatial(
     context and then writes prediction outputs to ``label_pred`` and
     ``score_pred``.
     """
+    if FFADVI is None:
+        raise ModuleNotFoundError(
+            "Optional dependency 'fadvi' is required for predict_tr_spatial. "
+            "Install it with: pip install fadvi"
+        )
+
     if batch_key not in adata_ref.obs.columns:
         raise ValueError(f"Batch key '{batch_key}' not found in adata_ref.obs")
 
