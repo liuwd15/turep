@@ -316,8 +316,8 @@ def predict_tr_spatial(
 
 def get_top_clonotype(
     adata: ad.AnnData,
-    col_clonotype: str = "clone_id",
-    col_prediction: str = "score_pred",
+    clonotype_key: str = "clone_id",
+    prediction_score_key: str = "score_pred",
     K: int = 5,
     C: float = 0.5,
 ) -> pd.DataFrame:
@@ -331,10 +331,10 @@ def get_top_clonotype(
     ----------
     adata
         AnnData object containing clonotype and prediction information.
-    col_clonotype
+    clonotype_key
         Column name in adata.obs containing clonotype identifiers
         (default: "clone_id").
-    col_prediction
+    prediction_score_key
         Column name in adata.obs containing prediction scores
         (default: "score_pred").
     K
@@ -366,15 +366,15 @@ def get_top_clonotype(
     This approach reduces the impact of outlier scores from small clonotypes
     while preserving the ranking of large clonotypes.
     """
-    if col_clonotype not in adata.obs.columns:
-        raise ValueError(f"Column '{col_clonotype}' not found in adata.obs")
+    if clonotype_key not in adata.obs.columns:
+        raise ValueError(f"Column '{clonotype_key}' not found in adata.obs")
 
-    if col_prediction not in adata.obs.columns:
-        raise ValueError(f"Column '{col_prediction}' not found in adata.obs")
+    if prediction_score_key not in adata.obs.columns:
+        raise ValueError(f"Column '{prediction_score_key}' not found in adata.obs")
 
-    logger.info(f"Analyzing clonotypes using columns: {col_clonotype}, {col_prediction}")
+    logger.info(f"Analyzing clonotypes using columns: {clonotype_key}, {prediction_score_key}")
 
-    summary_clonotype = adata.obs.groupby(col_clonotype).agg({col_prediction: ["size", "mean"]})
+    summary_clonotype = adata.obs.groupby(clonotype_key).agg({prediction_score_key: ["size", "mean"]})
     summary_clonotype.columns = ["n_cells", "mean_score"]
     summary_clonotype["baysian_mean"] = (
         summary_clonotype["n_cells"] * summary_clonotype["mean_score"] + K * C

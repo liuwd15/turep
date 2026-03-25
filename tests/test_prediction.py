@@ -97,7 +97,7 @@ class TestGetTopClonotype:
         ]
 
         result = get_top_clonotype(
-            mock_adata_with_clonotypes, col_clonotype="custom_clone", col_prediction="custom_score"
+            mock_adata_with_clonotypes, clonotype_key="custom_clone", prediction_score_key="custom_score"
         )
 
         assert isinstance(result, pd.DataFrame)
@@ -114,10 +114,10 @@ class TestGetTopClonotype:
     def test_get_top_clonotype_missing_column(self, mock_adata_with_clonotypes):
         """Test error handling for missing columns."""
         with pytest.raises(ValueError, match="Column 'missing_clonotype' not found"):
-            get_top_clonotype(mock_adata_with_clonotypes, col_clonotype="missing_clonotype")
+            get_top_clonotype(mock_adata_with_clonotypes, clonotype_key="missing_clonotype")
 
         with pytest.raises(ValueError, match="Column 'missing_score' not found"):
-            get_top_clonotype(mock_adata_with_clonotypes, col_prediction="missing_score")
+            get_top_clonotype(mock_adata_with_clonotypes, prediction_score_key="missing_score")
 
 
 class TestPredictionFunctionInputValidation:

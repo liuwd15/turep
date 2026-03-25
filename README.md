@@ -20,7 +20,7 @@ pip install -e .
 
 ## Usage
 
-### scRNA-seq prediction (FANVI)
+### scRNA-seq prediction (Turep-sc)
 
 Use the hosted pre-trained model and run prediction directly on query data.
 
@@ -41,7 +41,18 @@ head(adata_query.obs)
 Predictions are written to ``adata_query.obs["label_pred"]`` and
 ``adata_query.obs["score_pred"]``.
 
-### Spatial transcriptomics prediction (FFADVI)
+If you have TCR clonotype information saved in a column of adata_query.obs,
+The tumor-reactive probability of TCR clonotypes can be predicted based on Turep score prediction.
+
+```python
+from turep import get_top_clonotype
+
+# Uses adata_query.obs["clone_id"] and adata_query.obs["score_pred"] by default
+top_clonotypes = get_top_clonotype(adata_query, clonotype_key="clone_id", K=5, C=0.5)
+print(top_clonotypes.head())
+```
+
+### Spatial transcriptomics prediction (Turep-st)
 
 Factor disentanglement VAE models with focal loss that separate batch effects, biological labels, and residual variation.
 
