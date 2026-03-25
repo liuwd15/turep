@@ -4,10 +4,9 @@ import anndata
 import numpy as np
 import pytest
 import torch
-
-pytest.importorskip("fadvi")
-
 from turep import FFADVI
+
+pytestmark = pytest.mark.skipif(FFADVI is None, reason="Optional dependency 'fadvi' is required")
 
 
 @pytest.fixture
