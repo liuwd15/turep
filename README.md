@@ -68,6 +68,10 @@ adata_query = predict_tr_spatial(adata_query, adata_ref, "sample_id")
 head(adata_query.obs)
 ```
 
+## Resources
+
+The notebooks and scripts for reproducing and visualizing results in our manuscript are available at [turep_notebooks](https://github.com/liuwd15/turep_notebooks).
+
 ## Citation
 
 If you use this package in your research, please cite the relevant papers for scvi-tools and the focal loss paper.
