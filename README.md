@@ -1,14 +1,18 @@
-# turep
+# Turep
 
 **Cross-cancer tumor-reactive CD8+ T cell prediction**
-
-## Overview
 
 `turep` is a Python package for predicting tumor-reactive CD8+ T cells from
 single-cell and spatial transcriptomics data across solid tumors.
 
 
 ## Installation
+
+### From Pypi
+
+```bash
+pip install turep
+```
 
 ### From source
 
@@ -74,4 +78,4 @@ The notebooks and scripts for reproducing and visualizing results in our manuscr
 
 ## Citation
 
-If you use this package in your research, please cite the relevant papers for scvi-tools and the focal loss paper.
+If you use this package in your research, please cite our preprint: [Liu et al. bioRxiv. 2026](https://doi.org/10.64898/2026.04.21.719961).
